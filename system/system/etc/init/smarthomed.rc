@@ -1,0 +1,21 @@
+# SmartHome init.rc configuration for FOS FTVs
+
+on post-fs-data
+    mkdir /data/securedStorageLocation 0777 vendor_smarthome vendor_smarthome
+    mkdir /data/securedStorageLocation/SmartHome 0777 vendor_smarthome vendor_smarthome
+    mkdir /data/securedStorageLocation/SmartHome/PROT_CHIP 0777 vendor_smarthome vendor_smarthome
+    mkdir /data/securedStorageLocation/SmartHome/chip-tool-server/ 0777 vendor_smarthome vendor_smarthome
+    mkdir /data/securedStorageLocation/SmartHome/chip-tool/ 0777 vendor_smarthome vendor_smarthome
+
+on property:sys.boot_completed=1
+    chown vendor_smarthome vendor_smarthome /data/securedStorageLocation/SmartHome/PROT_CHIP/CapabilityInstanceDatabase.db
+    chown vendor_smarthome vendor_smarthome /data/securedStorageLocation/SmartHome/PROT_CHIP/CHIPAdapterDatabase.db
+    chown vendor_smarthome vendor_smarthome /data/securedStorageLocation/SmartHome/PROT_CHIP/CHIPAdapterDatabase.db-journal
+    chown vendor_smarthome vendor_smarthome /data/securedStorageLocation/SmartHome/chip-tool/chip_tool_config.ini
+    restorecon_recursive /data/securedStorageLocation/SmartHome/PROT_CHIP
+
+service smarthomed /system/bin/SmartHomed
+    class main
+    user vendor_smarthome
+    group vendor_smarthome dbus inet net_raw
+    seclabel u:r:smarthomed:s0

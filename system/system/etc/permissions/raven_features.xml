@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+   Copyright (c) 2019-2022 Amazon.com, Inc. or its affiliates.  All rights reserved.
+   PROPRIETARY/CONFIDENTIAL.  USE IS SUBJECT TO LICENSE TERMS.
+-->
+<permissions>
+    <!-- By declaring the feature here
+         The API PackageManager.hasSystemFeature(String feature) will
+         return true if passed the feature name below.-->
+    <feature name="com.amazon.ffs.enabled"/>
+    <feature name="com.amazon.ugs.enabled"/>
+    <feature name="com.amazon.device.a2dp_sink.enabled"/>
+    <feature name="com.amazon.led_controller.enabled"/>
+    <feature name="android.software.cant_save_state" />
+    <feature name="com.amazon.feature.profile_picker"/>
+    <feature name="com.amazon.feature.security.camera.pip.enabled"/>
+    <feature name="com.amazon.hevc_ltr.supported"/>
+
+    <!-- Features used in NetworkStatusAdvisor to characterize devices -->
+    <feature name="com.amazon.firetv.ship.with.ethernet_adapter"/>
+
+    <!-- Feature to indicate the starboard is not enabled on the device -->
+    <feature name="com.amazon.feature.no_starboard_enabled"/>
+
+    <!-- Feature to indicate ASHA (hearing aid) is enabled on device -->
+    <feature name="amazon.software.hearing_aid"/>
+
+    <!-- Feature flag indicating that this device has Home Theater Tuple creation GUI
+         for both manual flow and FFP flow. -->
+    <feature name="com.amazon.feature.avls.htt_creation"/>
+</permissions>
+
