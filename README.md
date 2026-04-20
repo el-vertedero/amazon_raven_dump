@@ -1,0 +1,14 @@
+# raven-user 9 PS7712.5374N 0035199974912 amz-p,release-keys
+- manufacturer: amazon
+- platform: raven
+- codename: raven
+- flavor: raven-user
+- release: 9
+- id: PS7712.5374N
+- incremental: 0035199975044
+- tags: amz-p,release-keys
+- fingerprint: Amazon/raven/raven:9/PS7712.5374N/0035199974912:user/amz-p,release-keys
+- is_ab: false
+- brand: Amazon
+- branch: raven-user-9-PS7712.5374N-0035199974912-amz-p,release-keys
+- repo: amazon_raven_dump
