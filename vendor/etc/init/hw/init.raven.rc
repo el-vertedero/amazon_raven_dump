@@ -1,0 +1,175 @@
+#Raven specific init steps go here, included in init.amlogic.rc as init.${ro.product.device}.rc
+import init.amlogic.media.rc
+# WHA
+import init.whad_cc.rc
+# iperftun
+import init.iperftun.rc
+
+on post-fs-data
+    start audio_init
+    start audio_sys_init
+
+on early-boot
+    write /sys/devices/system/cpu/cpu1/online 0
+    sleep 1
+    write /sys/devices/system/cpu/cpu1/online 1
+    mkdir /dev/cpuset/rt-audio
+    chown audioserver audio /dev/cpuset/rt-audio
+    chown audioserver audio /dev/cpuset/rt-audio/tasks
+    chmod 0764 /dev/cpuset/rt-audio
+    chmod 0664 /dev/cpuset/rt-audio/tasks
+    write /dev/cpuset/rt-audio/mems 0
+    write /dev/cpuset/rt-audio/cpus 1
+    write /dev/cpuset/rt-auido/cpu_exclusive 1
+    write /dev/cpuset/rt-audio/sched_load_balance 0
+    write /dev/cpuset/foreground/boost/cpus 2-5
+    write /dev/cpuset/foreground/cpus 0,2-5
+    write /dev/cpuset/background/cpus 0,2-5
+    write /dev/cpuset/system-background/cpus 0,2-5
+    write /dev/cpuset/top-app/cpus 2-5
+
+on boot
+    chown system system /sys/devices/platform/gpio_keypad/privacy_trigger
+    chown system system /sys/devices/platform/gpio_keypad/privacy_timer_on
+    chown system system /sys/devices/platform/gpio_keypad/privacy_state
+    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor performance
+    write /sys/devices/system/cpu/cpu2/cpufreq/scaling_governor performance
+    chown system system /dev/amremote
+    write /sys/module/encoder/parameters/svc_enable 1
+#INA231 power monitor
+    chown system system /sys/class/hwmon/hwmon0/power1_input
+    chown system system /sys/class/hwmon/hwmon0/update_interval
+    chown system system /sys/class/hwmon/hwmon0/shunt_resistor
+
+    # Neighbor Detection parameters
+    write /proc/sys/net/ipv4/neigh/default/ucast_solicit 7
+    write /proc/sys/net/ipv4/neigh/default/mcast_resolicit 3
+    write /proc/sys/net/ipv6/neigh/default/ucast_solicit 7
+    write /proc/sys/net/ipv6/neigh/default/mcast_resolicit 3
+
+on init
+    export DOWNLOAD_CACHE /cache
+
+on fs
+    #wait /dev/device-mapper 20
+    mount_all /vendor/etc/fstab.amlogic --early
+    exec /system/bin/resize2fs -f /dev/block/data
+    mount_all /vendor/etc/fstab.amlogic --late
+    setprop ro.crypto.fuse_sdcard true
+    swapon_all /vendor/etc/fstab.amlogic
+
+#Insmod the Wifi Remote driver when Wifi P2P group is created
+on property:wlan.interface.p2p.group=*
+    start ozwpan
+
+on post-fs-data
+   verity_update_state
+
+on post-fs
+    write /sys/class/gpio/export "507"
+    write /sys/class/gpio/gpio507/direction "out"
+    chmod 0664 /sys/class/gpio/gpio507/value
+    restorecon /sys/class/gpio/gpio507/value
+    restorecon /sys/class/gpio/gpio507/direction
+    start ledcontroller
+    start led_anim_start
+# Set rx windows to 1.28M for 4k applications
+    write /proc/sys/net/core/rmem_max 1310720
+
+on property:dev.bootcomplete=1
+    start boot_complete
+
+on property:service.bootanim.exit=1
+    start led_anim_stop
+
+service loadmtk /system/bin/insmod /system/lib/modules/btmtksdio.ko
+     #user bluetooth
+     #class main
+     #group bluetooth net_bt_stack
+     disabled
+     oneshot
+service remtk /system/bin/rmmod btmtksdio
+     #user bluetooth
+     #class main
+     #group bluetooth net_bt_stack
+     disabled
+     oneshot
+on property:bluetooth.btdriver.mtk=true
+     start loadmtk
+on property:bluetooth.btdriver.mtk=false
+         start remtk
+
+#boot complete
+service boot_complete /system/bin/boot_complete.sh
+    disabled
+    user root
+    oneshot
+
+#audio system init
+service audio_sys_init /system/bin/audio_sys_init.sh
+    disabled
+    user root
+    oneshot
+
+# Audio init
+service audio_init /vendor/bin/audio_init.sh
+    disabled
+    oneshot
+    user root
+    group audio
+
+on property:sys.boot_completed=1
+    verity_update_state
+    start amzn_drmprov
+    write /sys/class/efuse/usb_boot_disable 1
+
+service ozwpan /system/bin/ozwpan.sh
+    disabled
+    oneshot
+    user root
+
+on property:tee.need_remount=1
+    mount ext4 /dev/block/tee /mnt/vendor/tee
+
+on property:vold.post_fs_data_done=1
+    start tee_check
+
+service tee_check /vendor/bin/tee_check.sh
+    user root
+    disabled
+    oneshot
+    seclabel u:r:tee:s0
+
+service amzn_drmprov /vendor/bin/amzn_drmprov_check
+    user root
+    group mediadrm
+    oneshot
+    disabled
+    seclabel u:r:amzn_drmprov:s0
+
+
+service led_anim_start /system/bin/start_led_animation.sh boot_1
+    user root
+    group shell system
+    disabled
+    oneshot
+
+service led_anim_stop /system/bin/stop_led_animation.sh boot_1
+    user root
+    group shell system
+    disabled
+    oneshot
+
+service ledcontroller /system/bin/ledcontroller
+    user root
+    group shell system
+
+# The following change requires that the corresponding change be made in the
+# device's device_common.mk file, and is required because "ip_local_reserved_ports"
+# is too long. Additional ephemeral port reservations should be added to the
+# ip_loc_res_ports var in the system.prop
+on property:vendor.sysctl.ip_loc_res_ports=*
+    write /proc/sys/net/ipv4/ip_local_reserved_ports ${vendor.sysctl.ip_loc_res_ports}
+
+# Import perfmonitord
+import init.perfmonitord.rc

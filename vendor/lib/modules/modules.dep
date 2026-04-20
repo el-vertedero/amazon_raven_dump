@@ -1,0 +1,31 @@
+/vendor/lib/modules/amvdec_avs2.ko: /vendor/lib/modules/stream_input.ko /vendor/lib/modules/decoder_common.ko /vendor/lib/modules/firmware.ko /vendor/lib/modules/media_clock.ko
+/vendor/lib/modules/amvdec_real.ko: /vendor/lib/modules/stream_input.ko /vendor/lib/modules/decoder_common.ko /vendor/lib/modules/firmware.ko /vendor/lib/modules/media_clock.ko
+/vendor/lib/modules/firmware.ko: /vendor/lib/modules/media_clock.ko
+/vendor/lib/modules/mali.ko:
+/vendor/lib/modules/amvdec_mpeg12.ko: /vendor/lib/modules/stream_input.ko /vendor/lib/modules/decoder_common.ko /vendor/lib/modules/firmware.ko /vendor/lib/modules/media_clock.ko
+/vendor/lib/modules/hid_ftv_bleremote.ko:
+/vendor/lib/modules/media_clock.ko:
+/vendor/lib/modules/dovi_vs10.ko:
+/vendor/lib/modules/amvdec_h264mvc.ko: /vendor/lib/modules/stream_input.ko /vendor/lib/modules/decoder_common.ko /vendor/lib/modules/firmware.ko /vendor/lib/modules/media_clock.ko
+/vendor/lib/modules/encoder.ko: /vendor/lib/modules/decoder_common.ko /vendor/lib/modules/firmware.ko /vendor/lib/modules/media_clock.ko
+/vendor/lib/modules/perfinfo.ko:
+/vendor/lib/modules/amvdec_h264.ko: /vendor/lib/modules/stream_input.ko /vendor/lib/modules/decoder_common.ko /vendor/lib/modules/firmware.ko /vendor/lib/modules/media_clock.ko
+/vendor/lib/modules/amvdec_mmpeg4.ko: /vendor/lib/modules/decoder_common.ko /vendor/lib/modules/firmware.ko /vendor/lib/modules/media_clock.ko
+/vendor/lib/modules/amvdec_h265.ko: /vendor/lib/modules/stream_input.ko /vendor/lib/modules/decoder_common.ko /vendor/lib/modules/firmware.ko /vendor/lib/modules/media_clock.ko
+/vendor/lib/modules/optee.ko:
+/vendor/lib/modules/aml_hardware_dmx.ko: /vendor/lib/modules/stream_input.ko /vendor/lib/modules/decoder_common.ko /vendor/lib/modules/firmware.ko /vendor/lib/modules/media_clock.ko
+/vendor/lib/modules/amvdec_mh264.ko: /vendor/lib/modules/stream_input.ko /vendor/lib/modules/decoder_common.ko /vendor/lib/modules/firmware.ko /vendor/lib/modules/media_clock.ko
+/vendor/lib/modules/amvdec_mpeg4.ko: /vendor/lib/modules/decoder_common.ko /vendor/lib/modules/firmware.ko /vendor/lib/modules/media_clock.ko
+/vendor/lib/modules/stream_input.ko: /vendor/lib/modules/decoder_common.ko /vendor/lib/modules/firmware.ko /vendor/lib/modules/media_clock.ko
+/vendor/lib/modules/vpu.ko: /vendor/lib/modules/media_clock.ko
+/vendor/lib/modules/amvdec_vp9.ko: /vendor/lib/modules/stream_input.ko /vendor/lib/modules/decoder_common.ko /vendor/lib/modules/firmware.ko /vendor/lib/modules/media_clock.ko
+/vendor/lib/modules/ddr_window_64.ko:
+/vendor/lib/modules/amvdec_mmpeg12.ko: /vendor/lib/modules/stream_input.ko /vendor/lib/modules/decoder_common.ko /vendor/lib/modules/firmware.ko /vendor/lib/modules/media_clock.ko
+/vendor/lib/modules/amvdec_mjpeg.ko: /vendor/lib/modules/decoder_common.ko /vendor/lib/modules/firmware.ko /vendor/lib/modules/media_clock.ko
+/vendor/lib/modules/amvdec_mmjpeg.ko: /vendor/lib/modules/decoder_common.ko /vendor/lib/modules/firmware.ko /vendor/lib/modules/media_clock.ko
+/vendor/lib/modules/wlan_mt76x8_sdio_prealloc.ko:
+/vendor/lib/modules/wlan_mt76x8_sdio.ko: /vendor/lib/modules/wlan_mt76x8_sdio_prealloc.ko
+/vendor/lib/modules/decoder_common.ko: /vendor/lib/modules/firmware.ko /vendor/lib/modules/media_clock.ko
+/vendor/lib/modules/optee_armtz.ko: /vendor/lib/modules/optee.ko
+/vendor/lib/modules/amvdec_vc1.ko: /vendor/lib/modules/decoder_common.ko /vendor/lib/modules/firmware.ko /vendor/lib/modules/media_clock.ko
+/vendor/lib/modules/amvdec_avs.ko: /vendor/lib/modules/stream_input.ko /vendor/lib/modules/decoder_common.ko /vendor/lib/modules/firmware.ko /vendor/lib/modules/media_clock.ko
