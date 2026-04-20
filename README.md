@@ -1,0 +1,14 @@
+# raven-userdebug 6.0 NMAIN1 1181 amz-d,dev-keys
+- manufacturer: amazon
+- platform: g12b
+- codename: raven
+- flavor: raven-userdebug
+- release: 7.1.2
+- id: NMAIN1
+- incremental: 0001745132930
+- tags: amz-d,dev-keys
+- fingerprint: Amazon/raven:6.0/NMAIN1/1181/N:userdebug/amz-d,dev-keys
+- is_ab: false
+- brand: Amazon
+- branch: raven-userdebug-6.0-NMAIN1-1181-amz-d,dev-keys
+- repo: amazon_raven_dump
